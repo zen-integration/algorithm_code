@@ -313,12 +313,6 @@ def _evaluate_threats_bb(self, my_board: int, opp_board: int) -> float:
 3. **より高度な手順序** - Killer Move、History Heuristic
 4. **枝刈りの改良** - Null Move Pruning
 
-### **期待される効果**
-- 現在の2-5倍の強さ向上
-- CPU時間制限の完全活用
-- より安定した判断力
-- 複雑な局面での対応力向上
-
 ---
 
 ## 🔚 まとめ
@@ -338,12 +332,6 @@ def _evaluate_threats_bb(self, my_board: int, opp_board: int) -> float:
 - **異なる手順で同じ盤面 = 計算は1回だけでOK**
 - **⭐ ビットカウントの最適化が評価関数を3-5倍高速化**
 
-### **CPU時間制限への対応状況**
-```
-制限: CPU時間3秒以内
-現状: 2-3秒で動作（制限内で安定）
-改善余地: 反復深化でより深い探索が可能
-```
 
 これらの技術は、チェス・将棋・囲碁などの**現代ゲームAIの標準技術**であり、立体四目並べに最適化して実装されています。
 
