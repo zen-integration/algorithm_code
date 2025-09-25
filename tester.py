@@ -6,9 +6,8 @@ def main():
     cube = [[[0 for _ in range(4)] for _ in range(4)] for _ in range(4)]
     
     ai = MyAI()
-    ai.is_terminal(cube)
     result = ai.get_move(cube, 1, [0, 0, 0])
 
-    print("Result of is_terminal on empty board:", result)  # Expected output:
+    print("Result of :", result)  # Expected output:
 if __name__ == "__main__":
     main()

@@ -23,12 +23,14 @@ class MyAI():
         # HERE OPTIMISE
         best_score = 0
         best_move = (0, 0)
+        print("Legal moves :", self.legal_move(board))
         for action in self.legal_move(board):
+            print("Action :", action)
             # if winning move, play it
             new_board = self.result(board, action)
             if self.is_terminal(new_board) and self.end_value == 1:
                 return (action[1], action[2])
-            current = self.alpha_beta_minimax(board, False, 0, 2, alpha=-math.inf, beta=math.inf)
+            current = self.alpha_beta_minimax(board, False, 0, 3, alpha=-math.inf, beta=math.inf)
             if current > best_score:
                 best_score = current
                 best_move = (action[1], action[2])
@@ -97,22 +99,21 @@ class MyAI():
         return False
 
 
-    def evaluate(self, board, lines):
+    def evaluate(self, board):
         """
             END CONDITION
             return 100 if ai win -100 if lose and 0 equal
         """
-		# score = 0
         enemy = 1 if self.player == 2 else 2
+        score = 0
 
         if self.over:
             return self.end_value * 100
-
 		# Heuristic scoring
-        for line in lines:
+        for line in self.lines:
 			# Example line : [(0,0,0), (1,1,1), (2,2,2), (3,3,3)]
 			# Example values : [-1, 1, 0, 2]
-            values = [board[x,y,z] for (x,y,z) in line]
+            values = [board[x][y][z] for (x,y,z) in line]
 			
             if values.count(self.player) == 3 and values.count(0) == 1:
                 score += 10
@@ -132,14 +133,16 @@ class MyAI():
         """
         action_arr = []
 
-        for plane_i in range(len(board)):
-            for row_i in range(plane_i):
-                for space_i in range(row_i):
-                    if board[plane_i][row_i][space_i] > 0 \
-                        and (board.length - 1 == plane_i \
+        for plane_i in range(4):
+            print("Plane i :", plane_i)
+            for row_i in range(4):
+                print("Row i :", row_i)
+                for space_i in range(4):
+                    if board[plane_i][row_i][space_i] == 0 \
+                        and (3 == plane_i \
                         or board[plane_i + 1][row_i][space_i] == 0 ):
 
-                        action_arr.append(tuple(plane_i, row_i, space_i))
+                        action_arr.append((plane_i, row_i, space_i))
         return action_arr
 
     def alpha_beta_minimax(self, board, isMaximiser, depth, max_depth, alpha, beta):
