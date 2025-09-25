@@ -19,11 +19,18 @@ class MyAI():
         # ここにアルゴリズムを書く
         self.player = player
         # HERE OPTIMISE
-        self.alpha_beta_minimax(board, True, 0, 2, 0, 0)
-        return (0, 0)
-
-#     fonction MINIMAX( p) est
-
+        best_score = 0
+        best_move = (0, 0)
+        for action in self.legal_move(board):
+            # if winning move, play it
+            new_board = self.result(board, action)
+            if self.is_terminal(new_board) and self.end_value == 1:
+                return (action[1], action[2])
+            current = self.alpha_beta_minimax(board, False, 0, 2, alpha=-math.inf, beta=math.inf)
+            if current > best_score:
+                best_score = current
+                best_move = (action[1], action[2])
+        return best_move
 
     def result(self, board, action):
         """
@@ -98,7 +105,7 @@ class MyAI():
 
         if self.over:
             return self.end_value * 100
-        
+
 		# Heuristic scoring
         for line in lines:
 			# Example line : [(0,0,0), (1,1,1), (2,2,2), (3,3,3)]
@@ -110,11 +117,11 @@ class MyAI():
             elif values.count(self.player) == 2 and values.count(0) == 2:
                 score += 1
 
-			if values.count(enemy) == 3 and values.count(0) == 1:
-				score -= 10
-			elif values.count(enemy) == 2 and values.count(0) == 2:
-				score -= 1
-		
+            if values.count(enemy) == 3 and values.count(0) == 1:
+            	score -= 10
+            elif values.count(enemy) == 2 and values.count(0) == 2:
+            	score -= 1
+
         return score
 
     def legal_move(self, board):
@@ -145,7 +152,7 @@ class MyAI():
         if isMaximiser:
             max_eval = -math.inf
             for action in self.legal_move(board):
-                eval = self.minimax(self.result(board, action), False, depth - 1, max_depth, alpha, beta)
+                eval = self.alpha_beta_minimax(self.result(board, action), False, depth - 1, max_depth, alpha, beta)
                 max_eval = max(max_eval, eval)
                 alpha = max(alpha, eval)
                 if beta <= alpha:
@@ -155,7 +162,7 @@ class MyAI():
             min_eval = math.inf
             for action in self.legal_move(board):
                 eval = self.alpha_beta_minimax(self.result(board, action), True, depth - 1, max_depth, alpha, beta)
-                min_eval = max(max_eval, eval)
+                min_eval = min(max_eval, eval)
                 beta = min(beta, eval)
                 if beta <= alpha:
                     break
@@ -163,11 +170,11 @@ class MyAI():
 
 
 # TEST
-def main():
-    # Create a 4x4x4 cube filled with 0
-    cube = [[[0 for _ in range(4)] for _ in range(4)] for _ in range(4)]
+# def main():
+#     # Create a 4x4x4 cube filled with 0
+#     cube = [[[0 for _ in range(4)] for _ in range(4)] for _ in range(4)]
     
-    ai = MyAI()
-    result = ai.is_terminal(cube, 1)
-    print("Result of is_terminal on empty board:", result)  # Expected output:
-if __name__ == "__main__":
+#     ai = MyAI()
+#     result = ai.is_terminal(cube, 1)
+#     print("Result of is_terminal on empty board:", result)  # Expected output:
+# if __name__ == "__main__":
