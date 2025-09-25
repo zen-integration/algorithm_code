@@ -9,7 +9,9 @@ class MyAI():
         self.lines = self.generate_lines()
         # check if the game is over
         self.over = False
-        
+        self.player = 0
+        self.end_value = 0 # 1 if win -1 if lose 0 if
+    
     def get_move(
         self,
         board: List[List[List[int]]], # 盤面情報
@@ -130,7 +132,7 @@ class MyAI():
         """
         action_arr = []
 
-        for plane_i in range(board.length):
+        for plane_i in range(len(board)):
             for row_i in range(plane_i):
                 for space_i in range(row_i):
                     if board[plane_i][row_i][space_i] > 0 \
@@ -169,12 +171,3 @@ class MyAI():
             return min_eval
 
 
-# TEST
-# def main():
-#     # Create a 4x4x4 cube filled with 0
-#     cube = [[[0 for _ in range(4)] for _ in range(4)] for _ in range(4)]
-    
-#     ai = MyAI()
-#     result = ai.is_terminal(cube, 1)
-#     print("Result of is_terminal on empty board:", result)  # Expected output:
-# if __name__ == "__main__":
