@@ -11,7 +11,7 @@
 | **禁止ライブラリ**     | `os`, `sys`, `subprocess`, `socket`, `requests`, `urllib`, `http`, `asyncio`, `threading`, `multiprocessing`, … |
 | **禁止関数**        | `open`, `eval`, `exec`, `compile`, `__import__`, `system`, `popen`                                              |
 | **Python バージョン** | サーバは **Python 3.9 互換** で実行（`match` 文など 3.10 以降専用構文は不可）                                                            |
-| **実行制限**        | メモリ最大 約1GB、CPU時間 約3秒、1手あたり待ち時間上限 10秒                                                                            |
+| **実行制限**        | メモリ最大 約1GB、CPU時間 約10秒、1手あたり待ち時間上限 10秒                                                                            |
 | **失敗時の扱い**      | タイムアウト／異常終了／無効座標 → 左上から置けるマスに強制配置し、理由が記録される                                                                     |
 
 ---
