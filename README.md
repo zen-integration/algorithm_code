@@ -19,7 +19,7 @@
 ## 2. ✔️ サンプル実装
 
 ```python
-"from typing import List, Tuple
+from typing import List, Tuple
 #from local_driver import Alg3D, Board # ローカル検証用
 from framework import Alg3D, Board # 本番用
 
